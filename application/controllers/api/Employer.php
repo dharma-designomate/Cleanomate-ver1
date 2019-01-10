@@ -282,5 +282,32 @@ class Employer extends REST_Controller {
 	   }
 	   }
 	   
+	   
+	   public function employerHelp_post() {
+	   $status=$this->employer_M->verify_key($this->post('key'));
+	   if($status) {
+	   $id=$this->post();
+	   $info=$this->employer_M->maidHelp($id);
+	   if(!empty($info)) {
+	   $info1['info']= $info;
+	   $info1['status']=  REST_Controller::HTTP_OK;
+	   $this->response($info1, REST_Controller::HTTP_OK);
+	   }
+	    else
+            {
+                // Set the response and exit
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'Something went wrong'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            } 
+	   } else {
+		    $this->response([
+                    'status' => FALSE,
+                    'message' => 'Incorrect API key'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+	   }
+	   }
+	   
 	
 }

@@ -260,6 +260,30 @@ Class Employer_M extends CI_Model {
 
 	}
 	
+	public function maidHelp($info) {
+	
+	if(!empty($info['emp_id'])) {
+			 $add_data['emp_id']= $info['emp_id'];
+		}
+		if(!empty($info['query_type'])) {
+			 $add_data['query_type']= $info['query_type'];
+		}
+	if(!empty($info['msg_details'])) {
+			 $add_data['msg_details']= $info['msg_details'];
+		}
+	
+			 $add_data['date_time']= date('Y-m-d H:i:s');
+		
+		$this->db->insert('help_data',$add_data);
+		$id = $this->db->insert_id();
+
+		
+		return true;
+		
+	}
+	
+	
+	
 	public function doupload($imagespic)
      {
 		 
